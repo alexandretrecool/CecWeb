@@ -331,8 +331,6 @@ function AdicionaItem3(ncodigo, nquantant, ldireto, nquantmax, niva) {
     var nvenda = parseFloat(naux.replace(",", "."));
     var naux = $("#vd_promo").val();
     var npromo = parseFloat(naux.replace(",", "."));
-    var naux = $("#vd_atacado").val();
-    var natacado = parseFloat(naux.replace(",", "."));
     if (!nvenda) {
         nvenda = 0;
     }
@@ -415,15 +413,9 @@ function AdicionaItem3(ncodigo, nquantant, ldireto, nquantmax, niva) {
     if (!ldireto && nvalor < ncusto && !$("#vd_quant_valor").prop("disabled") && aConfig.IGNOCUST !== 'S') { //custo
         nModoAutoriza = (nvalor == ncusto ? 72 : 58);
         var laut = VeAut(nModoAutoriza);
-        var catacado='';
-        if (natacado>0 && natacado>nvalor){
-            laut=false;
-            catacado='(Atacado)';
-        }
         if (!laut) {
             navigator.notification.confirm(
-                    _tr("Preço abaixo do mínimo "+catacado+".\nSolicita autorização ?"), // message
-//                    _tr("Preço abaixo do mínimo.\nSolicita autorização ?"), // message
+                    _tr("Preço abaixo do mínimo.\nSolicita autorização ?"), // message
                     function (e) {
                         if (e == 2) {
                             AutorizaPreco(ncodigo, nquant, nvalor / amoeda[nmoeda - 1][3], nminimo / amoeda[nmoeda - 1][3], nvenda, nquantant, niva, ncusto);

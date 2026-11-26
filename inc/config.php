@@ -5,14 +5,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
  */
 
-$curl = '../MadridVendasPhp/2.1.49/';
+$curl = '../CellVendasPhp/';
 $nempresa = '1';
 $ccomp = '';
-$ncliente_def="5478210";
+$ncliente_def="7142678";
 //$server = "10.11.11.100";
-$server = "localhost";
+$server = "192.168.12.121";
 $port = "3306";
 $user = "root";
 $password = "KoNeCt@3313" ;
-$database = "cec";
+$database = "abdel";
 

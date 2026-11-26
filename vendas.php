@@ -2185,7 +2185,6 @@ foreach ($aconfig as $key => $value) {
                             <div class="input-group" >
                                 <span class="input-group-addon form-cli form-cli1" id="id_val577858">Valor:</span>
                                 <input type="tel" id="vd_quant_valor" class="form-control text-left form-cli form-cli1" value="">
-                                <input type="hidden" id="vd_atacado" value="">
                                 <input type="hidden" id="vd_minimo" value="">
                                 <input type="hidden" id="vd_custo" value="">
                                 <input type="hidden" id="vd_venda" value="">
