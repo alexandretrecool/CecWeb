@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Fundo circular -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"></stop>
+      <stop offset="100%" stop-color="#1e3a8a"></stop>
+    </linearGradient>
+
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a3e635"></stop>
+      <stop offset="100%" stop-color="#16a34a"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Círculo principal -->
+  <circle cx="256" cy="256" r="200" fill="url(#blueGrad)"></circle>
+
+  <!-- Área interna -->
+  <circle cx="256" cy="256" r="150" fill="#ffffff" opacity="0.95"></circle>
+
+  <!-- Texto CEC -->
+  <text x="256" y="260" font-size="90" font-family="Arial, sans-serif" fill="#1e3a8a" text-anchor="middle" font-weight="bold">
+    CEC
+  </text>
+
+  <!-- Barras -->
+  <rect x="190" y="300" width="40" height="80" fill="#1e40af"></rect>
+  <rect x="240" y="300" width="40" height="80" fill="#e5e7eb"></rect>
+  <rect x="290" y="300" width="40" height="80" fill="#dc2626"></rect>
+
+  <!-- Seta verde -->
+  <path d="M120 300
+           C200 400, 350 400, 420 260
+           L390 260
+           L450 200
+           L480 260
+           L450 260
+           C350 420, 150 420, 80 300 Z" fill="url(#greenGrad)"></path>
+
+</svg>

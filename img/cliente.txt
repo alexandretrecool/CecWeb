@@ -1,0 +1,9 @@
+cell      =7142678
+atacado   =2347239
+colections=8734895
+gabba     =6530231
+mdl       =8720593
+madrid    =5478210
+abba      =7453806
+fastrax   =3084417
+minumundo =1800921 

@@ -1,0 +1,1341 @@
+<!DOCTYPE html><html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *  'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src *  'unsafe-inline' 'unsafe-eval'; frame-src *;">
+
+        <link rel="stylesheet" href="assets/components/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/components/bootstrap/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/cec-modern.css?v=3">
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <script src="assets/components/jquery/jquery.min.js"></script>
+        <script src="assets/components/jquery-mask/jquery.mask.min.js"></script>
+        <script src="assets/components/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/components/bootbox/mybootbox.js"></script>
+        <!--biblioteca de criptografia-->
+        <script src="assets/js/crypto.js"></script>
+        <script src="js/gets.js"></script>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Estoques</title>
+        <script type="text/javascript">
+
+        </script>
+        <style>
+            .form-cli {
+                font-size: 1em;
+            }
+            .tabprod  {
+                font-size: 1em;
+            }
+        </style>
+    </head>
+    <body >
+        <div class="container-fluid" >
+            <div class="row">
+                <div class="alert alert-info">
+                    <span class="text-left"> Configurações </span>
+                    <span id="dvence" class="text-right"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group" >
+                    <span class="input-group-addon form-cli">
+                        Empresa:
+                    </span>
+                    <select class="form-control" id="empresa">
+                        <option value="0">Selecione a Empresa</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                </div>
+            </div>
+            <div id="cempresa" style="display: none" >
+                <!--form onsubmit="VendasLogin();return false"-->
+
+                <div class="row">
+                    <div class="input-group" >
+                        <span class="input-group-addon form-cli">
+                            Nome:
+                        </span>
+                        <input type="text" id="nome" class="form-control form-cli" size="100" maxlength="100" value="" placeholder="Informe o nome para display">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group" >
+                        <span class="input-group-addon form-cli">
+                            URL:
+                        </span>
+                        <input type="text" id="url" class="form-control form-cli" size="100" maxlength="100" value="" placeholder="Informe a URL">
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Cod.Cliente:
+                            </span>
+                            <input type="number" id="cliente" class="form-control form-cli" placeholder="Código do Cliente">
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="input-group" >
+                        <span class="input-group-addon form-cli">
+                            Modo :
+                        </span>
+                        <select class="form-control" id="modo">
+                            <option value="0" selected="">Vendas</option>
+                            <option value="1">Caixa</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="modo_caixa" style="display: none">
+                    <div class="row" style="display: block">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Pix :
+                            </span>
+                            <input type="number" id="cx_pix" class="form-control form-cli" placeholder="Codigo do pix">
+                        </div>
+                    </div>
+                    <div class="row" style="display: block">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Modelo Nota :
+                            </span>
+                            <input type="number" id="cx_nota" class="form-control form-cli" placeholder="Modelo da Nota">
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Dias :
+                            </span>
+                            <input type="number" id="cx_dias" class="form-control form-cli" placeholder="Dias anteriores p/ pesquisa">
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Conta :
+                            </span>
+                            <input type="number" id="cx_conta" class="form-control form-cli" placeholder="Conta para Lançamento">
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Histórico :
+                            </span>
+                            <input type="number" id="cx_hist" class="form-control form-cli" placeholder="Histórico para lançamento">
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <span class="input-group-addon form-cli">
+                            Operadores Autorizados:
+                        </span>
+                        <div class="input-group" >
+                            <input type="text" id="cx_ope" class="form-control form-cli" size="150" maxlength="150" value="" placeholder="Operadores, separados por vírgula">
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <span class="input-group-addon form-cli">
+                            Lojas Autorizadas:
+                        </span>
+                        <div class="input-group" >
+                            <input type="text" id="cx_loj" class="form-control form-cli" size="150" maxlength="150" value="" placeholder="Lojas, separadas por vírgula">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="modo_vendas" style="display: none">
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Nome Nt.:
+                            </span>
+                            <input type="text" id="nomenota" class="form-control form-cli" size="100" maxlength="100" value="" placeholder="Informe o nome para o PDF">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Moedas Vendas:
+                            </span>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="moe_ven_1" checked>1</label>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="moe_ven_2" checked>2</label>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="moe_ven_3" checked>3</label>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="moe_ven_4" checked>4</label>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Moeda Inicio:
+                            </span>
+                            <select class="form-control" id="moedaini">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Moeda Finalização:
+                            </span>
+                            <select class="form-control" id="moeda">
+                                <option value="0">Nenhuma</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Veículo:
+                            </span>
+                            <select class="form-control" id="vei">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Impressora Auto:
+                            </span>
+                            <input type="text" id="impauto" class="form-control form-cli" placeholder="Num1,nome1-num2,nome2-....">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Impressora:
+                            </span>
+                            <select class="form-control" id="imp">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                            <span class="input-group-addon form-cli">
+                                Tipo Impr:
+                            </span>
+                            <select class="form-control" id="tipimp">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Imp. Bematech:
+                            </span>
+                            <input type="text" id="bema" class="form-control form-cli" placeholder="Num1,Nome1-num2,nome2-....">
+                            <span class="input-group-addon form-cli">
+                                Vias:
+                            </span>
+                            <input type="number" id="bema_vias" class="form-control form-cli" placeholder="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Imp.Produtos:
+                            </span>
+                            <select class="form-control" id="pro">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Preço Produtos:
+                            </span>
+                            <select class="form-control" id="pro_pre">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Imp.QrCode:
+                            </span>
+                            <select class="form-control" id="qrcode">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Imp.BarCode:
+                            </span>
+                            <select class="form-control" id="barcode">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Hora Relatório:
+                            </span>
+                            <input type="time" id="conf_rlini" class="form-control form-cli" value="" placeholder="Informe a hora inicial">
+                            <span class="input-group-addon form-cli">
+                                a
+                            </span>
+                            <input type="time" id="conf_rlfim" class="form-control form-cli" value="" placeholder="Informe a hora final">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Crédito Relatório:
+                            </span>
+                            <input type="number" id="conf_rlcredito" class="form-control form-cli" value="" placeholder="Informe os creditos diários">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Data Relatório:
+                            </span>
+                            <input type="checkbox" id="conf_rldata" class="form-control form-cli" value="" placeholder="Pode informar datas não atuais">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Relatório de Dividas:
+                            </span>
+                            <input type="checkbox" id="conf_divida" class="form-control form-cli" value="" placeholder="Relatório de dividas de clientes">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group hidden" >
+                            <span class="input-group-addon form-cli">
+                                Venda Multi Lojas:
+                            </span>
+                            <input type="checkbox" id="conf_multiloja" class="form-control form-cli" value="" placeholder="Venda a varias lojas no mesmo pedido">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Senha Config:
+                            </span>
+                            <input type="password" id="conf_pass" class="form-control form-cli" size="100" maxlength="100" value="" placeholder="Informe a Senha p/ configuração">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Notas Simultâneas:
+                            </span>
+                            <input type="number" id="conf_ntsimult" class="form-control form-cli" value="" placeholder="Informe quantas notas simultâneas">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Pagamentos:
+                            </span>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="conf_pag_1" checked>Dinheiro</label>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="conf_pag_2" checked>Cartão</label>
+                            <label class="checkbox-inline"><input type="checkbox" value="" id="conf_pag_3">Prazo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Configurações :
+                            </span>
+                            <div class='form-control'>
+                                <label class='radio-inline'><input type="radio" id="cf_local"  name='cf_cliente' value='0' checked >Local</label>
+                                <label class='radio-inline'><input type="radio" id="cf_server" name='cf_cliente' value='1'>Server</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h3>Clientes:</h3>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Email:
+                            </span>
+                            <select class="form-control" id="c_emai">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Nascimento:
+                            </span>
+                            <select class="form-control" id="c_nasc">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Sexo:
+                            </span>
+                            <select class="form-control" id="c_sexo">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Tipo:
+                            </span>
+                            <select class="form-control" id="c_tipo">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                CEP:
+                            </span>
+                            <select class="form-control" id="c_cep">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Endereço:
+                            </span>
+                            <select class="form-control" id="c_ende">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Complemento:
+                            </span>
+                            <select class="form-control" id="c_comp">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Bairro:
+                            </span>
+                            <select class="form-control" id="c_bair">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                UF:
+                            </span>
+                            <select class="form-control" id="c_uf">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Publicidade:
+                            </span>
+                            <select class="form-control" id="c_publ">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Telefone:
+                            </span>
+                            <select class="form-control" id="c_tele">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Celular:
+                            </span>
+                            <select class="form-control" id="c_celu">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                WhatsApp:
+                            </span>
+                            <select class="form-control" id="c_what">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                                <option value="2">Obrigatório</option>
+                            </select>
+                        </div>
+                        <h3>Imagens,Descrições:</h3>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Caminho Externo:
+                            </span>
+                            <input type="text" id="imgext" class="form-control form-cli" size="150" maxlength="150" value="" placeholder="Use [[COD]] ou [[CODDG]]">
+                        </div>
+                        <h3>Preços:</h3>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Lj Preço:
+                            </span>
+                            <input type="number" id="lj_preco" class="form-control form-cli" value="" placeholder="Informe a loja padrão para preços">
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Normal:
+                            </span>
+                            <select class="form-control" id="c_venda">
+                                <option value="N">Nenhum</option>
+                                <option value="A">Preço A</option>
+                                <option value="B">Preço B</option>
+                                <option value="C">Preço C</option>
+                                <option value="T">Atacado</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Mínimo:
+                            </span>
+                            <select class="form-control" id="c_minimo">
+                                <option value="N">Nenhum</option>
+                                <option value="A">Preço A</option>
+                                <option value="B">Preço B</option>
+                                <option value="C">Preço C</option>
+                                <option value="T">Atacado</option>
+                            </select>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Consultar:
+                            </span>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c_mostraa" value="A" >
+                                <label class="form-check-label" for="c_mostraa">
+                                    Preço A
+                                </label>
+                                <input class="form-check-input" type="checkbox" id="c_mostrab" value="B" >
+                                <label class="form-check-label" for="c_mostrab">
+                                    Preço B
+                                </label>
+                                <br>
+                                <input class="form-check-input" type="checkbox" id="c_mostrac" value="C" >
+                                <label class="form-check-label" for="c_mostrac">
+                                    Preço C
+                                </label>
+                                <input class="form-check-input" type="checkbox" id="c_mostrat" value="T" >
+                                <label class="form-check-label" for="c_mostrat">
+                                    Atacado
+                                </label>
+                            </div>         
+                        </div>
+                        
+                        <div class="input-group" >
+                            <span class="input-group-addon form-cli">
+                                Consultar p/ Referencia:
+                            </span>
+                            <select class="form-control" id="refer">
+                                <option value="1">Sim</option>
+                                <option value="0">Não</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Imp Empresa na Nota.:
+                                </span>
+                                <select class="form-control" id="nmnt_imp">
+                                    <option value="N">Nenhum</option>
+                                    <option value="L">Config Local</option>
+                                    <option value="C">Config CEC</option>
+                                    <option value="E">Empresa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Cotação na NT.:
+                                </span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="mostra_cot" value="A" >
+                                    <label class="form-check-label" for="mostra_cot">
+                                        Mostrar
+                                    </label>
+                                </div>         
+                            </div>         
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Gravar Loc. Início:
+                                </span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="loc_ini" value="A" >
+                                    <label class="form-check-label" for="loc_ini">
+                                        Ativo
+                                    </label>
+                                </div>         
+                            </div>         
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Gravar Loc. Final:
+                                </span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="loc_fin" value="A" >
+                                    <label class="form-check-label" for="loc_fin">
+                                        Ativo
+                                    </label>
+                                </div>         
+                            </div>         
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Gravar Loc. Tempo:
+                                </span>
+                                <div class="form-check">
+                                    <input type="number" id="loc_temp" class="form-control form-cli" value="0" placeholder="Tempo (minutos)">
+                                </div>         
+                            </div>         
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Limite sem Foto :
+                                </span>
+                                <div class="input-group">
+                                    <input type="number" id="limitefoto" class="form-control form-cli" value="0" placeholder="Limite sem foto">
+                                </div>         
+                            </div>         
+                        </div>
+                        <div class="row">
+                            <div class="input-group" >
+                                <span class="input-group-addon form-cli">
+                                    Menu:
+                                </span>
+                                <select class="form-control" id="menutipo">
+                                    <option value="1">Icones</option>
+                                    <option value="2">Suspenso</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center" >
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-right" >
+                            <div class="input-group" >
+                                <span class="input-group-btn">
+                                    <button id="btload" class="btn btn-danger" >
+                                        <span class="glyphicon glyphicon glyphicon-open"></span>
+                                    </button>
+                                    <button id="btsave" class="btn btn-warning" >
+                                        <span class="glyphicon glyphicon glyphicon-save"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center" >
+                        <div class="input-group" >
+                            <span class="input-group-btn">
+                                <button id="btsalvar" class="btn btn-success" >
+                                    <span class="glyphicon glyphicon-log-in form-cli"></span>
+                                    <span class=" form-cli" >Salvar</span>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center" >
+                        &nbsp;<br><BR>&nbsp;
+                    </div>
+                </div>
+
+                <!--/form-->
+            </div>
+
+        </div>
+
+
+
+        <script type="text/javascript">
+            var nempresa = '';
+            var asalva = [];
+            var cversao = '';
+            app.initialize();
+
+            $("#modo").on("change", function () {
+                window.localStorage.setItem("cecvendas" + nempresa + "_modo", $("#modo").val());
+                if ($("#modo").val() == 0) {
+                    $("#modo_vendas").show();
+                    $("#modo_caixa").hide();
+                } else {
+                    $("#modo_caixa").show();
+                    $("#modo_vendas").hide();
+
+                }
+            });
+            function vesalva(cnome) {
+                if (!cnome) {
+                    return '';
+                }
+                for (var i = 0; i < asalva.length; i++) {
+                    if (cnome == asalva[i][0]) {
+                        return asalva[i][1];
+                    }
+                }
+                return '';
+            }
+            function LeSalva() {
+                $("#conf_pag_1").prop(vesalva("_conf_pag_1") == "1");
+                $("#conf_pag_2").prop(vesalva("_conf_pag_2") == "1");
+                $("#conf_pag_3").prop(vesalva("_conf_pag_3") == "1");
+
+                $("#moe_ven_1").prop(vesalva("_moe_ven_1") == "1");
+                $("#moe_ven_2").prop(vesalva("_moe_ven_2") == "1");
+                $("#moe_ven_3").prop(vesalva("_moe_ven_3") == "1");
+                $("#moe_ven_4").prop(vesalva("_moe_ven_4") == "1");
+
+                $("#nome").val(vesalva("_nomeemp"));
+                $("#qrcode").val(vesalva("_qrcode"));
+                $("#barcode").val(vesalva("_barcode"));
+                $("#url").val(vesalva("_url"));
+
+                $("#nomenota").val(vesalva("_nomenota"));
+                $("#nmnt_imp").val(vesalva("_nmnt_imp"));
+                $("#mostra_cot").val(vesalva("_mostra_cot"));
+                $("#loc_ini").val(vesalva("_loc_ini"));
+                $("#loc_fin").val(vesalva("_loc_fin"));
+                $("#loc_temp").val(vesalva("_loc_temp"));
+                $("#menutipo").val(vesalva("_menutipo"));
+                $("#conf_pass").val(vesalva("_senha"));
+                $("#conf_rlini").val(vesalva("_rlini"));
+                $("#conf_rlfim").val(vesalva("_rlfim"));
+                $("#conf_rlcredito").val(vesalva("_rlcredito"));
+                $("#moeda").val(vesalva("_moedafim"));
+                $("#moedaini").val(vesalva("_moedaini"));
+                $("#imp").val(vesalva("_imp"));
+                $("#impauto").val(vesalva("_impauto"));
+                $("#vei").val(vesalva("_vei"));
+                $("#tipimp").val(vesalva("_tipimp"));
+                $("#pro").val(vesalva("_impprod"));
+                $("#pro_pre").val(vesalva("_impprod_pre"));
+                $("#conf_ntsimult").val(vesalva("_ntsimult"));
+                $("#c_venda").val(vesalva("_venda"));
+                $("#c_minimo").val(vesalva("_minimo"));
+                $("#imgext").val(vesalva("_imgext"));
+                $("#lj_preco").val(vesalva("_lj_preco"));
+                $("#limitefoto").val(vesalva("_limitefoto"));
+                $("#cliente").val(vesalva("_cliente"));
+                $("#bema").val(vesalva("_bema"));
+                $("#bema_vias").val(vesalva("_bema_vias"));
+                $("#limitefoto").val(vesalva("_limitefoto"));
+
+                $("#refer").val(vesalva("_refer") == "1");
+                
+
+
+
+
+
+
+                $("#conf_rldata").prop('checked', vesalva("_rldata") == "1");
+                $("#conf_divida").prop('checked', vesalva("_divida") == "1");
+                $("#conf_multiloja").prop('checked', vesalva("_multiloja") == "1");
+                for (var i = 0; i < acliente.length; i++) {
+                    $("#c_" + acliente[i][0]).val(vesalva("_c_" + acliente[i][0]));
+                }
+                $("#c_mostraa").prop('checked', vesalva("_mostraa") == "1");
+                $("#c_mostrab").prop('checked', vesalva("_mostrab") == "1");
+                $("#c_mostrac").prop('checked', vesalva("_mostrac") == "1");
+                $("#c_mostrat").prop('checked', vesalva("_mostrat") == "1");
+
+                alert("Informações carregadas com sucesso.");
+//alert('final');
+            }
+            function CriaSalva() {
+                var curl = trim($("#url").val());
+                if (curl.substr(-1) !== "/") {
+                    curl = curl + '/';
+                }
+                var ncli = $("#cliente").val();
+                if (ncli == "0") {
+                    ncli = "";
+                }
+                asalva = [];
+                asalva.push(["_conf_pag_1", $("#conf_pag_1").prop('checked') ? 1 : 0]);
+                asalva.push(["_conf_pag_2", $("#conf_pag_2").prop('checked') ? 1 : 0]);
+                asalva.push(["_conf_pag_3", $("#conf_pag_3").prop('checked') ? 1 : 0]);
+
+                asalva.push(["_moe_ven_1", $("#moe_ven_1").prop('checked') ? 1 : 0]);
+                asalva.push(["_moe_ven_2", $("#moe_ven_2").prop('checked') ? 1 : 0]);
+                asalva.push(["_moe_ven_3", $("#moe_ven_3").prop('checked') ? 1 : 0]);
+                asalva.push(["_moe_ven_4", $("#moe_ven_4").prop('checked') ? 1 : 0]);
+
+                asalva.push(["_nomeemp", $("#nome").val()]);
+                asalva.push(["_qrcode", $("#qrcode").val()]);
+                asalva.push(["_barcode", $("#barcode").val()]);
+
+                asalva.push(["_url", curl]);
+                asalva.push(["_nomenota", $("#nomenota").val()]);
+                asalva.push(["_nmnt_imp", $("#nmnt_imp").val()]);
+                asalva.push(["_mostra_cot", $("#mostra_cot").prop('checked') ? "1" : ""]);
+                asalva.push(["_loc_ini", $("#loc_ini").prop('checked') ? "1" : ""]);
+                asalva.push(["_loc_fin", $("#loc_fin").prop('checked') ? "1" : ""]);
+                asalva.push(["_loc_temp", $("#loc_temp").val()]);
+                asalva.push(["_menutipo", $("#menutipo").val()]);
+                asalva.push(["_cliente", ncli]);
+                asalva.push(["_bema", $("#bema").val()]);
+                asalva.push(["_bema_vias", $("#bema_vias").val()]);
+                asalva.push(["_senha", $("#conf_pass").val()]);
+                asalva.push(["_rlini", $("#conf_rlini").val()]);
+                asalva.push(["_rlfim", $("#conf_rlfim").val()]);
+                asalva.push(["_rlcredito", $("#conf_rlcredito").val()]);
+                asalva.push(["_rldata", $("#conf_rldata").prop('checked') ? "1" : ""]);
+                asalva.push(["_divida", $("#conf_divida").prop('checked') ? "1" : ""]);
+                asalva.push(["_multiloja", $("#conf_multiloja").prop('checked') ? "1" : ""]);
+                asalva.push(["_moedafim", $("#moeda").val()]);
+                asalva.push(["_moedaini", $("#moedaini").val()]);
+                asalva.push(["_imp", $("#imp").val()]);
+                asalva.push(["_impauto", $("#impauto").val()]);
+                asalva.push(["_vei", $("#vei").val()]);
+                asalva.push(["_tipimp", $("#tipimp").val()]);
+                asalva.push(["_impprod", $("#pro").val()]);
+                asalva.push(["_impprod_pre", $("#pro_pre").val()]);
+                for (var i = 0; i < acliente.length; i++) {
+                    asalva.push(["_c_" + acliente[i][0], $("#c_" + acliente[i][0]).val()]);
+                }
+                asalva.push(["_ntsimult", $("#conf_ntsimult").val()]);
+                asalva.push(["_local", 1]);
+                asalva.push(["_venda", $("#c_venda").val()]);
+                asalva.push(["_minimo", $("#c_minimo").val()]);
+                asalva.push(["_mostraa", $("#c_mostraa").prop('checked') ? 1 : 0]);
+                asalva.push(["_mostrab", $("#c_mostrab").prop('checked') ? 1 : 0]);
+                asalva.push(["_mostrac", $("#c_mostrac").prop('checked') ? 1 : 0]);
+                asalva.push(["_mostrat", $("#c_mostrat").prop('checked') ? 1 : 0]);
+                asalva.push(["_imgext", $("#imgext").val()]);
+                asalva.push(["_lj_preco", $("#lj_preco").val()]);
+                asalva.push(["_limitefoto", $("#limitefoto").val()]);
+
+                asalva.push(["_refer", $("#refer").val()]);
+
+                for (var i = 0; i < asalva.length; i++) {
+                    //alert(asalva[i][0]+" "+asalva[i][1]);
+                    window.localStorage.setItem("cecvendas" + nempresa + asalva[i][0], asalva[i][1]);
+                }
+
+            }
+            $("#btload").on("click", function () {
+                var success = function (data) {
+                    window.resolveLocalFileSystemURL(data.url, function (fileEntry) {
+                        //alert(fileEntry);
+                        fileEntry.file(function (file) {
+                            var reader = new FileReader();
+                            reader.onloadend = function () {
+                                var decryptedBytes = CryptoJS.AES.decrypt(this.result, "KoNeCt@3313");
+                                var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+                                //alert(fileEntry.fullPath + ": " + plaintext);
+                                asalva = [];
+                                var aaux = plaintext.split('\n');
+                                for (var i = 0; i < aaux.length; i++) {
+                                    var aaux1 = (aaux[i]).split('\r');
+                                    asalva.push([aaux1[0], aaux1[1]]);
+                                }
+                                LeSalva();
+                                return;
+                            };
+                            reader.readAsText(file);
+                        }, function () {
+                            alert('Não posso salvar o arquivo de configuração ')
+                        }
+                        );
+                    }, function () {
+                        alert('Erro lendo arquivo temporário');
+                    });
+                };
+                var error = function (msg) {
+                    alert('Erro lendo arquivo:' + msg);
+                    //do something
+                };
+                var options = {"mime": "text/plain", "capture": false};
+                options = {"capture": false};
+                fileChooser.open(options, success, error);
+
+            });
+
+            $("#btsave").on("click", function () {
+                CriaSalva();
+                var folderpath = cordova.file.externalRootDirectory + "Download/";
+                var d = new Date();
+                var filename = "Cec_" + asalva[0][1] + "_" + d.getFullYear() + (d.getMonth() + 1) + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + ".cfg";
+                var cconf = "";
+
+                var lpag_1 = $("#conf_pag_1").prop("checked");
+                var lpag_2 = $("#conf_pag_2").prop("checked");
+                var lpag_3 = $("#conf_pag_3").prop("checked");
+
+                var lmoe_ven_1 = $("#moe_ven_1").prop("checked");
+                var lmoe_ven_2 = $("#moe_ven_2").prop("checked");
+                var lmoe_ven_3 = $("#moe_ven_3").prop("checked");
+                var lmoe_ven_4 = $("#moe_ven_4").prop("checked");
+
+                if (!lpag_1 && !lpag_2 && !lpag_3) {
+                    alert("Escolha 1 ou mais formas de pagamento");
+                    return;
+                }
+
+                for (var i = 0; i < asalva.length; i++) {
+                    cconf = cconf + asalva[i][0] + "\r" + asalva[i][1] + "\n";
+                }
+                var encryptedAES = CryptoJS.AES.encrypt(cconf, "KoNeCt@3313");
+                cconf = encryptedAES.toString();
+
+                window.resolveLocalFileSystemURL(folderpath, function (dir) {
+                    dir.getFile(filename, {create: true}, function (file) {
+                        file.createWriter(function (fileWriter) {
+                            fileWriter.write(cconf);
+                            alert("Arquivo salvo em: " + folderpath + filename);
+                        }, function () {
+                            alert('Não posso salvar o arquivo de configuração no caminho ' + folderpath);
+                        });
+                    });
+                }, function () {
+                    alert('Erro salvando arquivo temporário')
+                });
+            });
+            $("#empresa").change(function () {
+                if (parseInt($("#empresa").val()) == 0) {
+                    $("#cempresa").css("display", "none");
+                    return false;
+                }
+
+                nempresa = parseInt($("#empresa").val()) - 1;
+                if (nempresa == 0) {
+                    nempresa = '';
+                }
+                $("#conf_pag_1").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_conf_pag_1") == "1");
+                $("#conf_pag_2").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_conf_pag_2") == "1");
+                $("#conf_pag_3").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_conf_pag_3") == "1");
+
+                $("#moe_ven_1").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_moe_ven_1") == "1");
+                $("#moe_ven_2").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_moe_ven_2") == "1");
+                $("#moe_ven_3").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_moe_ven_3") == "1");
+                $("#moe_ven_4").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_moe_ven_4") == "1");
+
+                $("#modo").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_modo")));
+                $("#cx_pix").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_cx_pix")));
+                $("#cx_nota").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_cx_nota")));
+                $("#cx_dias").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_cx_dias")));
+                $("#cx_conta").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_cx_conta")));
+                $("#cx_hist").val(parseInt(window.localStorage.getItem("cecvendas" + nempresa + "_cx_hist")));
+                $("#cx_ope").val(window.localStorage.getItem("cecvendas" + nempresa + "_cx_ope"));
+                $("#cx_loj").val(window.localStorage.getItem("cecvendas" + nempresa + "_cx_loj"));
+                $("#modo").change();
+
+                $("#url").val(window.localStorage.getItem("cecvendas" + nempresa + "_url"));
+                $("#nome").val(window.localStorage.getItem("cecvendas" + nempresa + "_nomeemp"));
+                $("#conf_pass").val(window.localStorage.getItem("cecvendas" + nempresa + "_senha"));
+                $("#conf_rlini").val(window.localStorage.getItem("cecvendas" + nempresa + "_rlini"));
+                $("#conf_rlfim").val(window.localStorage.getItem("cecvendas" + nempresa + "_rlfim"));
+                $("#conf_rlcredito").val(window.localStorage.getItem("cecvendas" + nempresa + "_rlcredito"));
+                $("#conf_rldata").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_rldata") == "1");
+                $("#conf_divida").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_divida") == "1");
+                $("#conf_multiloja").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_multiloja") == "1");
+                $("#conf_ntsimult").val(window.localStorage.getItem("cecvendas" + nempresa + "_ntsimult"));
+                var nqrcode = window.localStorage.getItem("cecvendas" + nempresa + "_qrcode");
+                if (!nqrcode) {
+                    nqrcode = 0;
+                }
+                $("#qrcode").val(nqrcode);
+                var nbarcode = window.localStorage.getItem("cecvendas" + nempresa + "_barcode");
+                if (!nbarcode) {
+                    nbarcode = 0;
+                }
+                $("#barcode").val(nbarcode);
+                var cnomenota = window.localStorage.getItem("cecvendas" + nempresa + "_nomenota");
+                if (!cnomenota) {
+                    cnomenota = '';
+                }
+                $("#nomenota").val(cnomenota);
+                var cnmnt_imp = window.localStorage.getItem("cecvendas" + nempresa + "_nmnt_imp");
+                if (!cnmnt_imp) {
+                    cnmnt_imp = 'N';
+                }
+                $("#nmnt_imp").val(cnmnt_imp);
+
+                $("#mostra_cot").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_mostra_cot") == "1");
+                $("#loc_ini").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_loc_ini") == "1");
+                $("#loc_fin").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_loc_fin") == "1");
+                $("#loc_temp").val(window.localStorage.getItem("cecvendas" + nempresa + "_loc_temp"));
+                $("#menutipo").val(window.localStorage.getItem("cecvendas" + nempresa + "_menutipo") > 1 ? window.localStorage.getItem("cecvendas" + nempresa + "_menutipo") : 1);
+
+                var ncliente = window.localStorage.getItem("cecvendas" + nempresa + "_cliente");
+                if (!ncliente) {
+                    ncliente = 0;
+                }
+                $("#cliente").val(ncliente);
+
+                var cbema = window.localStorage.getItem("cecvendas" + nempresa + "_bema");
+                if (!cbema) {
+                    cbema = '';
+                }
+                $("#bema").val(cbema);
+
+                var cbema_vias = window.localStorage.getItem("cecvendas" + nempresa + "_bema_vias");
+                if (!cbema_vias) {
+                    cbema_vias = '1';
+                }
+                $("#bema_vias").val(cbema_vias);
+
+                var nmoeda = window.localStorage.getItem("cecvendas" + nempresa + "_moedafim");
+                if (!nmoeda) {
+                    nmoeda = 1;
+                }
+                $("#moeda").val(nmoeda);
+                var nmoedaini = window.localStorage.getItem("cecvendas" + nempresa + "_moedaini");
+                if (!nmoedaini) {
+                    nmoedaini = 1;
+                }
+                $("#moeda").val(nmoeda);
+                var nimp = window.localStorage.getItem("cecvendas" + nempresa + "_imp");
+                if (!nimp) {
+                    nimp = 0;
+                }
+                $("#imp").val(nimp);
+
+                var cimpauto = window.localStorage.getItem("cecvendas" + nempresa + "_impauto");
+                if (!cimpauto) {
+                    cimpauto = '';
+                }
+                $("#impauto").val(cimpauto);
+
+                var nvei = window.localStorage.getItem("cecvendas" + nempresa + "_vei");
+                if (!nvei) {
+                    nvei = 0;
+                }
+                $("#vei").val(nvei);
+
+                var ntipimp = window.localStorage.getItem("cecvendas" + nempresa + "_tipimp");
+                if (!ntipimp) {
+                    ntipimp = 0;
+                }
+                $("#tipimp").val(ntipimp);
+                var npro = window.localStorage.getItem("cecvendas" + nempresa + "_impprod");
+                if (!npro) {
+                    npro = 0;
+                }
+                $("#pro").val(npro);
+                var npro_pre = window.localStorage.getItem("cecvendas" + nempresa + "_impprod_pre");
+                if (!npro_pre) {
+                    npro_pre = 0;
+                }
+                $("#pro_pre").val(npro_pre);
+                var nloc = window.localStorage.getItem("cecvendas" + nempresa + "_local");
+                if (!nloc) {
+                    nloc = 0;
+                }
+                $("#cf_local").prop("checked", nloc == 0);
+                $("#cf_server").prop("checked", nloc > 0);
+                if ($("#cf_local").prop('checked')) {
+                    CarregaLocal();
+                } else {
+                    CarregaServer();
+                }
+                $("#cempresa").css("display", "block");
+                var d = new Date();
+                curl = window.localStorage.getItem("cecvendas" + nempresa + "_url");
+                d.setTime(VeVence() * 1000);
+                $("#dvence").html(d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear());
+            });
+            $("#cf_server,#cf_local").click(function () {
+                if ($("input:checked").val() == 0) {
+                    CarregaLocal();
+                } else {
+                    CarregaServer();
+                }
+            });
+            $("#btsalvar").click(function () {
+                var curl = trim($("#url").val());
+                if (curl.substr(-1) !== "/") {
+                    curl = curl + '/';
+                }
+                var ncli = $("#cliente").val();
+                if (ncli == "0") {
+                    ncli = "";
+                }
+                CriaSalva();
+
+                if ($("#cf_local").prop("checked")) {
+                    window.localStorage.setItem("cecvendas" + nempresa + "_local", 0);
+                } else {
+                    window.localStorage.setItem("cecvendas" + nempresa + "_local", 1);
+                    SalvaServer();
+                }
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_pix",$("#cx_pix").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_nota",$("#cx_nota").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_dias",$("#cx_dias").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_conta",$("#cx_conta").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_hist",$("#cx_hist").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_ope",$("#cx_ope").val());
+                window.localStorage.setItem("cecvendas" + nempresa + "_cx_loj",$("#cx_loj").val());
+
+                navigator.notification.alert(
+                        "Dados Salvos. \nRecarregando aplicação", // message
+                        function () {
+                        }, // callback
+                        'Vendas', // title
+                        'Ok'                  // buttonName
+                        );
+                window.location.href = "index.html";
+                return false;
+            });
+            function CarregaLocal() {
+                for (var i = 0; i < acliente.length; i++) {
+                    var naux = window.localStorage.getItem("cecvendas" + nempresa + "_c_" + acliente[i][0]);
+                    if (!naux && naux != 0) {
+                        naux = 1;
+                    }
+                    $("#c_" + acliente[i][0]).val(naux);
+                }
+
+                var nven = window.localStorage.getItem("cecvendas" + nempresa + "_venda");
+                if (!nven) {
+                    nven = "A";
+                }
+                $("#c_venda").val(nven);
+                var nmin = window.localStorage.getItem("cecvendas" + nempresa + "_minimo");
+                if (!nmin) {
+                    nven = "C";
+                }
+                $("#c_minimo").val(nmin);
+                var nven = window.localStorage.getItem("cecvendas" + nempresa + "_venda");
+                if (!nven) {
+                    nven = "A";
+                }
+                $("#c_venda").val(nven);
+                var nmos = window.localStorage.getItem("cecvendas" + nempresa + "_mostraa");
+                if (!nmos) {
+                    nmos = 1;
+                }
+                $("#c_mostraa").prop('checked', nmos == 1);
+                var nmos = window.localStorage.getItem("cecvendas" + nempresa + "_mostrab");
+                if (!nmos) {
+                    nmos = 1;
+                }
+                $("#c_mostrab").prop('checked', nmos == 1);
+                var nmos = window.localStorage.getItem("cecvendas" + nempresa + "_mostrac");
+                if (!nmos) {
+                    nmos = 1;
+                }
+                $("#c_mostrac").prop('checked', nmos == 1);
+                var nmos = window.localStorage.getItem("cecvendas" + nempresa + "_mostrat");
+                if (!nmos) {
+                    nmos = 1;
+                }
+                $("#c_mostrat").prop('checked', nmos == 1);
+                $("#imgext").val(window.localStorage.getItem("cecvendas" + nempresa + "_imgext"));
+                $("#lj_preco").val(window.localStorage.getItem("cecvendas" + nempresa + "_lj_preco"));
+                $("#limitefoto").val(window.localStorage.getItem("cecvendas" + nempresa + "_limitefoto"));
+
+                $("#refer").val(window.localStorage.getItem("cecvendas" + nempresa + "_refer"));
+        
+
+                $("#nmnt_imp").val(window.localStorage.getItem("cecvendas" + nempresa + "_nmnt_imp"));
+                $("#mostra_cot").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_mostra_cot") == "1");
+                $("#loc_ini").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_loc_ini") == "1");
+                $("#loc_fin").prop('checked', window.localStorage.getItem("cecvendas" + nempresa + "_loc_fin") == "1");
+                $("#loc_temp").val(window.localStorage.getItem("cecvendas" + nempresa + "_loc_temp"));
+                $("#menutipo").val(window.localStorage.getItem("cecvendas" + nempresa + "_menutipo") > 1 ? window.localStorage.getItem("cecvendas" + nempresa + "_menutipo") : 1);
+            }
+            function SalvaServer() {
+                var curl = trim($("#url").val());
+                if (!curl) {
+                    alert("Sem url. Carregando configurações local");
+                    window.localStorage.setItem("cecvendas" + nempresa + "_local", 0);
+                    return;
+                }
+                var cgrava = "";
+                for (var i = 0; i < acliente.length; i++) {
+                    if (i > 0) {
+                        cgrava = cgrava + ",";
+                    }
+                    cgrava = cgrava + $("#c_" + acliente[i][0]).val();
+                }
+
+
+                $.ajax({
+                    method: "POST",
+                    url: curl + cversao + "/index_c.php",
+                    async: false,
+                    cache: false,
+                    timeout: 10000,
+                    data: {modo: "CLI_SAVE", cliente: cgrava
+                        , venda: $("#c_venda").val()
+                        , minimo: $("#c_minimo").val()
+                        , imgext: $("#imgext").val()
+                        , lj_preco: $("#lj_preco").val()
+                        , limitefoto: $("#limitefoto").val()
+                        , refer: $("#refer").val()
+                        , mostraa: $("#c_mostraa").prop('checked') ? 1 : 0
+                        , mostrab: $("#c_mostrab").prop('checked') ? 1 : 0
+                        , mostrac: $("#c_mostrac").prop('checked') ? 1 : 0
+                        , mostrat: $("#c_mostrat").prop('checked') ? 1 : 0
+                        , nmnt_imp: $("#nmnt_imp").val()
+                        , lmostra_cot: $("#mostra_cot").prop('checked') ? 1 : 0
+                        , lloc_ini: $("#loc_ini").prop('checked') ? 1 : 0
+                        , lloc_fin: $("#loc_fin").prop('checked') ? 1 : 0
+                        , nloc_temp: $("#loc_temp").val()
+                        , menutipo: $("#menutipo").val()
+                    }
+                }).done(function (e) {
+                    return false;
+                }).fail(function (e, d) {
+                    navigator.notification.alert(
+                            'Sem comunicação com o servidor. Adotando configuraqções local', // message
+                            function () {
+                                window.localStorage.setItem("cecvendas" + nempresa + "_local", 0);
+                                return false;
+                            }, // callback
+                            'Vendas', // title
+                            'Ok'                  // buttonName
+                            );
+                    return false;
+                });
+                return false;
+            }
+            function CarregaServer() {
+                var curl = trim($("#url").val());
+                if (!curl) {
+                    alert("Sem url. Carregando configurações local");
+                    CarregaLocal();
+                    return;
+                }
+                $.ajax({
+                    method: "POST",
+                    url: curl + cversao + "/index_c.php",
+                    async: false,
+                    cache: false,
+                    timeout: 3000,
+                    data: {modo: "CLI_LOAD"}
+                }).done(function (e) {
+                    var aret = JSON.parse(e);
+                    for (var i = 0; i < acliente.length; i++) {
+                        var naux = aret.cli["cl_" + (i + 1)];
+                        if (!naux && naux != 0) {
+                            naux = 1;
+                        }
+                        $("#c_" + acliente[i][0]).val(naux);
+                    }
+                    $("#c_venda").val(aret.cli["venda"]);
+                    $("#c_minimo").val(aret.cli["minimo"]);
+                    $("#imgext").val(aret.cli["imgext"]);
+                    $("#lj_preco").val(aret.cli["lj_preco"]);
+                    $("#limitefoto").val(aret.cli["limitefoto"]);
+                    $("#refer").val(aret.cli["refer"]);
+                    $("#c_mostraa").prop('checked', aret.cli["mostraa"] == "1");
+                    $("#c_mostrab").prop('checked', aret.cli["mostrab"] == "1");
+                    $("#c_mostrac").prop('checked', aret.cli["mostrac"] == "1");
+                    $("#c_mostrat").prop('checked', aret.cli["mostrat"] == "1");
+                    $("#nmnt_imp").val(aret.cli["nmnt_imp"]);
+                    $("#mostra_cot").prop('checked', aret.cli["mostra_cot"] == "1");
+                    $("#loc_ini").prop('checked', aret.cli["loc_ini"] == "1");
+                    $("#loc_fin").prop('checked', aret.cli["loc_fin"] == "1");
+                    $("#loc_temp").val(aret.cli["loc_temp"]);
+                    $("#menutipo").val(aret.cli["menutipo"]);
+                    return false;
+                }).fail(function (e, d) {
+                    navigator.notification.alert(
+                            'Sem comunicação com o servidor. Adotando configuraqções local', // message
+                            function () {
+                                $("#cf_local").prop("checked", true);
+                                $("#cf_server").prop("checked", false);
+                                CarregaLocal();
+                                return false;
+                            }, // callback
+                            'Vendas', // title
+                            'Ok'                  // buttonName
+                            );
+                    return false;
+                });
+                return false;
+            }
+            
+            
+            if ($("#cf_server").prop("checked")) {
+                CarregaServer();
+            } else {
+                CarregaLocal();
+            }
+        </script>
+    </body>
+</html>

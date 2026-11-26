@@ -1,0 +1,7 @@
+bootstrap 	 -- 3.3.7
+bootbox 	 -- 4.4.0
+jquery 		 -- 3.2.1
+jquery-mask 	 -- 1.14.10
+virtual-keyboard -- ??
+
+consoft 	 -- 0.1

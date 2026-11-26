@@ -1,0 +1,11 @@
+<?php
+session_start();
+$_SESSION["sid"]=$_REQUEST["sid"];
+$_SESSION["codigo"]=$_REQUEST["codigo"];
+$_SESSION["nome"]=$_REQUEST["nome"];
+$_SESSION["vendedor"]=$_REQUEST["codigo"];
+$_SESSION["cvendedor"]=$_REQUEST["nome"];
+$_SESSION["usuario"]=$_REQUEST["usuario"];
+$_SESSION["cusuario"]=$_REQUEST["cusuario"];
+$_SESSION["web"]=1;
+session_write_close();

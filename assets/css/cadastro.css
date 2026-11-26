@@ -1,0 +1,82 @@
+/* 
+    Created on : May 2, 2017, 10:34:27 AM
+    Author     : Cristiano Kemmer
+*/
+
+/* Estilização dos campos */
+#grupo {
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+}
+
+#foto-controles {
+    margin: 0 auto;
+    width: 60%;
+    margin-top: 30px;
+}
+
+#observacao {
+    height: 56px;   /* duas linhas */
+    resize: none;
+}
+
+#info-formulario-row {
+    margin-top: 12px;
+}
+
+/* Estilização geral do formulário */
+.row {
+    margin-bottom: 8px;
+}
+
+.input-group * {
+    border-radius: 2px;
+    border-color: #E5DDDF;
+}
+
+span.input-group-addon {
+    min-width: 90px;
+    background-color: #F7EEF0;
+    color: #606060;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+span.input-group-addon.small {
+    min-width: 55px;
+}
+
+/* typeahead dropdown */
+.tt-menu {
+    margin: 6px 0;
+    padding: 6px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2x;
+            border-radius: 2px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+    padding: 3px 10px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.tt-suggestion:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+    color: #fff;
+    background-color: #0097cf;
+}
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; }
